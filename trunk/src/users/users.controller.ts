@@ -6,12 +6,12 @@ import {
   Patch,
   Param,
   Delete,
-  HttpException,
-  HttpStatus,
+  UsePipes,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ValidationPipe } from 'src/common/pipe/validation.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -24,11 +24,11 @@ export class UsersController {
 
   @Get()
   findAll() {
-    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     return this.usersService.findAll();
   }
 
   @Get(':id')
+  @UsePipes(new ValidationPipe())
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }

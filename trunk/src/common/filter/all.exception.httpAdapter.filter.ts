@@ -18,10 +18,16 @@ export class AllExceptionHttpAdapterFilter implements ExceptionFilter {
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
+    const message =
+      exception instanceof HttpException
+        ? exception.message
+        : '알수없는 에러 발생.';
+
     const responseBody = {
       statusCode: httpStatus,
       timestamp: new Date().toISOString(),
       path: this.httpAdapterHost.httpAdapter.getRequestUrl(ctx.getRequest()),
+      message,
     };
 
     console.log(responseBody);
