@@ -19,9 +19,10 @@ export class LoggingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       // map((res) => console.log(res)), // 응답을 이렇게 가져올 수 있고,
       map((data) => ({ data })), // 이렇게 커스텀하여 응답을 변형 시킬 수 있음. { "data": 응답 }
-      tap(() =>
-        console.log(`LoggingInterceptor : After... ${Date.now() - now}ms`),
-      ),
+      tap((data) => {
+        console.log(data);
+        console.log(`LoggingInterceptor : After... ${Date.now() - now}ms`);
+      }),
     );
   }
 }

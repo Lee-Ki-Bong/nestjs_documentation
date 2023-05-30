@@ -24,18 +24,12 @@ import { ConfigModule } from '@nestjs/config';
     // 위 부터 아래로 순서대로 호출.
 
     // 가드 전역 바인딩
-    { provide: APP_GUARD, useClass: BongGuard },
+    // { provide: APP_GUARD, useClass: BongGuard },
     { provide: APP_GUARD, useClass: RolesGuard },
 
     // 인터셉터 전역 바인딩
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: LoggingInterceptor,
-    },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: ErrorsInterceptor,
-    },
+    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
+    // { provide: APP_INTERCEPTOR, useClass: ErrorsInterceptor },
   ],
 })
 export class AppModule implements NestModule {
