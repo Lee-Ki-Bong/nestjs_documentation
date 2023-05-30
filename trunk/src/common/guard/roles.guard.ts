@@ -14,7 +14,7 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    console.log('RolesGuard...', roles);
+    console.log('RolesGuard...', roles ?? 'roles 데코레이터 없음.');
     // console.log(context);
     return true;
   }
