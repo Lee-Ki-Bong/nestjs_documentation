@@ -8,12 +8,13 @@ import {
   Delete,
   ParseIntPipe,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { BongGuard } from 'src/common/guard/bong.guard';
 import { Roles } from 'src/common/decorator/roles.decorator';
+import { LoggingInterceptor } from 'src/common/interceptor/logging.interceptor';
 
 @Controller('users')
 export class UsersController {
@@ -31,8 +32,11 @@ export class UsersController {
 
   @Get(':id')
   @Roles('admin', 'a')
+  // @UseInterceptors(LoggingInterceptor) // 메서드 수준에서 인터셉터 바인딩
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id);
+    const res = this.usersService.findOne(id);
+    // console.log(res);
+    return res;
   }
 
   @Patch(':id')
