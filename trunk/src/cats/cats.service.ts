@@ -1,15 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { CatsConstants } from './cats.constants';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
 @Injectable()
 export class CatsService {
+  constructor(
+    @Inject('CATS_CONSTANTS')
+    private readonly catsConstants: typeof CatsConstants,
+  ) {}
   create(createCatDto: CreateCatDto) {
     return 'This action adds a new cat';
   }
 
   findAll() {
-    return `This action returns all cats`;
+    return `This action returns all cats ${this.catsConstants.HOLLOW_MESSAGE}`;
   }
 
   findOne(id: number) {
