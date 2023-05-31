@@ -7,6 +7,7 @@ import { RolesGuard } from './common/guard/roles.guard';
 import { LoggingInterceptor } from './common/interceptor/logging.interceptor';
 import { ErrorsInterceptor } from './common/interceptor/errors.interceptor';
 import { ConfigModule } from '@nestjs/config';
+import { CatsModule } from './cats/cats.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
       envFilePath: ['.env.bong'],
     }),
     UsersModule,
+    CatsModule,
   ],
   controllers: [],
 
