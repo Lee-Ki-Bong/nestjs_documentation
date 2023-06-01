@@ -14,7 +14,7 @@ import { CatsModule } from './cats/cats.module';
     // 환결 설정 모듈.
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.bong'],
+      envFilePath: ['bong.env'],
     }),
     UsersModule,
     CatsModule,
@@ -37,7 +37,6 @@ import { CatsModule } from './cats/cats.module';
 export class AppModule implements NestModule {
   // 미들웨어 적용방법.
   configure(consumer: MiddlewareConsumer) {
-    // console.log(process.env);
     consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }
