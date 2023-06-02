@@ -8,26 +8,29 @@ import { LoggingInterceptor } from './common/interceptor/logging.interceptor';
 import { ErrorsInterceptor } from './common/interceptor/errors.interceptor';
 import { ConfigModule } from '@nestjs/config';
 import { CatsModule } from './cats/cats.module';
+import { HttpModule } from '@nestjs/axios';
+import { SlackService } from './common/interceptor/slack.service';
 
 @Module({
   imports: [
     // 환결 설정 모듈.
+    HttpModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['bong.env'],
     }),
+
     UsersModule,
     CatsModule,
   ],
   controllers: [],
-
-  // MSA 전역적으로 가드 적용
   providers: [
+    SlackService,
     // 위 부터 아래로 순서대로 호출.
 
     // 가드 전역 바인딩
-    // { provide: APP_GUARD, useClass: BongGuard },
-    { provide: APP_GUARD, useClass: RolesGuard },
+    { provide: APP_GUARD, useClass: BongGuard },
+    // { provide: APP_GUARD, useClass: RolesGuard },
 
     // 인터셉터 전역 바인딩
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
